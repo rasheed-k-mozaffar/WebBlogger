@@ -14,5 +14,5 @@ public class UpdatePostCommand : IRequest<Post?>
 
     public PostStatus Status { get; set; }
 
-    public ICollection<Guid>? Tags { get; set; } = [];
+    public ICollection<Tag>? Tags { get; set; } = [];
 }

@@ -14,4 +14,14 @@ public static class PostMapper
             Tags = command.Tags,
             PublishedOn = DateTime.UtcNow
         };
+
+    public static Post MapToPost(this UpdatePostCommand command) =>
+        new Post()
+        {
+            Id = command.Id,
+            Title = command.Title,
+            Content = command.Content,
+            Tags = command.Tags,
+            Status = command.Status
+        };
 }
