@@ -33,32 +33,24 @@ public class PostsRepository(AppDbContext db, ILogger<PostsRepository> logger) :
     public async Task<PaginatedReadOnlyCollection<Post>>
         GetLatestPostsAsync(int pageNumber, int pageSize, string? title, PostSortOption sortOption, CancellationToken cancellationToken)
     {
-        try
-        {
-            var query = db.Posts.AsQueryable();
+        var query = db.Posts.AsQueryable();
 
-            var filteredQuery = query.ApplyFilter(title);
-            var sortedQuery = filteredQuery.ApplySorting(sortOption);
+        var filteredQuery = query.ApplyFilter(title);
+        var sortedQuery = filteredQuery.ApplySorting(sortOption);
 
-            var totalCount = await filteredQuery.CountAsync(cancellationToken);
-            var posts = await sortedQuery
-                .ApplyPagination(pageNumber, pageSize)
-                .Execute(cancellationToken);
+        var totalCount = await filteredQuery.CountAsync(cancellationToken);
+        var posts = await sortedQuery
+            .ApplyPagination(pageNumber, pageSize)
+            .Execute(cancellationToken);
 
-            var paginatedPosts = new PaginatedReadOnlyCollection<Post>(
-                totalCount,
-                pageNumber,
-                pageSize,
-                posts.AsReadOnly()
-            );
+        var paginatedPosts = new PaginatedReadOnlyCollection<Post>(
+            totalCount,
+            pageNumber,
+            pageSize,
+            posts.AsReadOnly()
+        );
 
-            return paginatedPosts;
-        }
-        catch (OperationCanceledException)
-        {
-            logger.LogInformation("Loading posts was cancelled");
-            return PaginatedReadOnlyCollection<Post>.Empty(pageNumber, pageSize);
-        }
+        return paginatedPosts;
     }
 
     public async Task<Post?> GetPostByIdAsync(Guid postId, CancellationToken cancellationToken)
