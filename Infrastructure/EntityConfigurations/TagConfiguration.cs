@@ -16,8 +16,5 @@ public class TagConfiguration : IEntityTypeConfiguration<Tag>
 
         builder.Property(x => x.Description)
             .HasMaxLength(2000);
-
-        builder.HasOne(x => x.CoverImage)
-            .WithOne(x => x.Tag);
     }
 }

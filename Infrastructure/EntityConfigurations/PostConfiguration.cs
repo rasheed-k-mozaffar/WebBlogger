@@ -21,9 +21,7 @@ public class PostConfiguration : IEntityTypeConfiguration<Post>
         builder.HasMany(x => x.Tags)
             .WithMany(x => x.Posts);
 
-        builder.HasOne(x => x.CoverImage)
-            .WithOne(x => x.Post)
-            .OnDelete(DeleteBehavior.Cascade);
+        builder.HasOne(x => x.CoverImage);
 
         builder.HasMany(x => x.Comments)
             .WithOne(x => x.Post)
