@@ -92,7 +92,7 @@ public class PostsRepository(AppDbContext db, ILogger<PostsRepository> logger) :
         await db.SaveChangesAsync(cancellationToken);
     }
 
-    public async Task<Post?> UpdatePostAsync(Guid postId, Post post, CancellationToken cancellationToken)
+    public async Task<Post> UpdatePostAsync(Guid postId, Post post, CancellationToken cancellationToken)
     {
         var postToUpdate = await db
             .Posts

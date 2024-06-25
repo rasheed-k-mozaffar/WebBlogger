@@ -16,5 +16,5 @@ public interface IPostsRepository
 
     Task DeletePostAsync(Guid postId, DeleteType deleteType,CancellationToken cancellationToken);
 
-    Task<Post?> UpdatePostAsync(Guid postId, Post post, CancellationToken cancellationToken);
+    Task<Post> UpdatePostAsync(Guid postId, Post post, CancellationToken cancellationToken);
 }
