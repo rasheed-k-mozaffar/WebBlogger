@@ -10,7 +10,5 @@ public class Tag
 
     public ICollection<Post>? Posts { get; set; }
 
-    public Guid? CoverImageId { get; set; }
-
-    public Image? CoverImage { get; set; }
+    public string? CoverImageUrl { get; set; }
 }
