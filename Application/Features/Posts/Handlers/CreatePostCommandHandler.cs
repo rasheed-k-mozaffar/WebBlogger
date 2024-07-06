@@ -9,9 +9,9 @@ using MediatR;
 namespace Application.Features.Posts.Handlers;
 
 public class CreatePostCommandHandler(IPostsRepository postsRepository, IValidator<Post> validator)
-    : IRequestHandler<CreatePostCommand, Unit>
+    : IRequestHandler<Commands.CreatePostCommand, Unit>
 {
-    public async Task<Unit> Handle(CreatePostCommand request, CancellationToken cancellationToken)
+    public async Task<Unit> Handle(Commands.CreatePostCommand request, CancellationToken cancellationToken)
     {
         Post post = request.MapToPost();
         var validationResult = await validator.ValidateAsync(post, cancellationToken);
