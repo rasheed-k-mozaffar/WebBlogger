@@ -19,7 +19,6 @@
     <ItemGroup>
       <Folder Include="Dtos\Requests\" />
       <Folder Include="Dtos\Responses\" />
-      <Folder Include="Features\Tags\Queries\" />
     </ItemGroup>
 
 </Project>
