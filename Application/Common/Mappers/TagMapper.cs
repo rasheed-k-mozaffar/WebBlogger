@@ -14,13 +14,14 @@ public static class TagMapper
             CoverImageUrl = command.CoverImageUrl
         };
 
-    public static Tag MapToTag()
+    public static Tag MapToTag(this UpdateTagCommand command)
     {
-        //TODO: Write the mapper to map from UpdateTagCommand
         return new Tag()
         {
-            Id = Guid.NewGuid(),
-            Name = string.Empty
+            Id = command.Id,
+            Name = command.Name,
+            Description = command.Description,
+            CoverImageUrl = command.CoverImageUrl
         };
     }
 }
