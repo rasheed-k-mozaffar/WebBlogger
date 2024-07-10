@@ -1,4 +1,5 @@
 using Application.Common.Interfaces;
+using Application.Common.Mappers;
 using Application.Features.Tags.Commands;
 using Application.Features.Tags.Handlers;
 using FluentValidation;
@@ -42,7 +43,7 @@ public class CreateTagCommandHandlerTests
         var result = await handler.Handle(command, CancellationToken.None);
 
         // ASSERT
-        result.Should().Be(Unit.Value);
+        result.Id.Should().Be(command.Id);
         await _tagValidator.Received(1).ValidateAsync(Arg.Any<Tag>(), Arg.Any<CancellationToken>());
         await _tagsRepository.Received(1).SaveTagAsync(Arg.Any<Tag>(), Arg.Any<CancellationToken>());
     }

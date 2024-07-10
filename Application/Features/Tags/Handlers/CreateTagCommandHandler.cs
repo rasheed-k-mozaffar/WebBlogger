@@ -8,9 +8,9 @@ using MediatR;
 namespace Application.Features.Tags.Handlers;
 
 public class CreateTagCommandHandler(ITagsRepository tagsRepository, IValidator<Tag> validator)
-    : IRequestHandler<CreateTagCommand, Unit>
+    : IRequestHandler<CreateTagCommand, Tag>
 {
-    public async Task<Unit> Handle(CreateTagCommand request, CancellationToken cancellationToken)
+    public async Task<Tag> Handle(CreateTagCommand request, CancellationToken cancellationToken)
     {
         var tag = request.MapToTag();
         var validationResult = await validator.ValidateAsync(tag, cancellationToken);
@@ -19,6 +19,6 @@ public class CreateTagCommandHandler(ITagsRepository tagsRepository, IValidator<
             throw new ValidationException(validationResult.Errors);
 
         await tagsRepository.SaveTagAsync(tag, cancellationToken);
-        return Unit.Value;
+        return tag;
     }
 }

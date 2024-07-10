@@ -1,8 +1,9 @@
+using Domain.Models;
 using MediatR;
 
 namespace Application.Features.Tags.Commands;
 
-public class CreateTagCommand : IRequest<Unit>
+public class CreateTagCommand : IRequest<Tag>
 {
     public Guid Id { get; init; }
 
