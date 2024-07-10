@@ -70,9 +70,9 @@ public class TagsRepository(AppDbContext context) : ITagsRepository
         var sortedQuery = filteredQuery.ApplySorting(paginationRequest.SortOption);
 
         var totalCount = filteredQuery.Count();
-        var posts = await sortedQuery
+        var posts = sortedQuery
             .ApplyPagination(paginationRequest.PageNumber, paginationRequest.PageSize)
-            .Execute(cancellationToken);
+            .ToList();
 
         var paginatedPosts = new PaginatedReadOnlyCollection<Post>(
             totalCount,
