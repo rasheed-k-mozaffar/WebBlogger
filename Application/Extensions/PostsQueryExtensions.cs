@@ -10,7 +10,7 @@ public static class PostsQueryExtensions
     {
         if (!string.IsNullOrEmpty(title))
         {
-            query = query.Where(post => post.Title.Contains(title));
+            query = query.Where(post => post.Title.Contains(title, StringComparison.OrdinalIgnoreCase));
         }
 
         return query;
