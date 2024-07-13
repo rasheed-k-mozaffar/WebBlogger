@@ -1,8 +1,9 @@
 using System.Reflection.PortableExecutable;
+using Domain.Interfaces;
 
 namespace Domain.Models;
 
-public class Comment
+public class Comment : ILikeable
 {
     public Guid Id { get; set; }
 

@@ -1,8 +1,9 @@
 using Domain.Enums;
+using Domain.Interfaces;
 
 namespace Domain.Models;
 
-public class Post
+public class Post : ILikeable
 {
     public Guid Id { get; set; }
 
@@ -24,11 +25,11 @@ public class Post
 
     public ICollection<Comment> Comments { get; set; } = [];
 
-    public ICollection<Like> Likes { get; set; } = [];
-
     public ICollection<BookmarkedPost> BookmarkedPosts { get; set; } = [];
 
     public uint Views { get; set; }
+
+    public ICollection<Like> Likes { get; set; } = [];
 
     public uint LikeCount { get; set; }
 }
