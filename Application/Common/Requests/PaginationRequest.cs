@@ -16,3 +16,12 @@ public class PaginationRequest<T>(int pageNumber, int pageSize, string? searchTe
         SortOption = sortOption;
     }
 }
+
+public class PaginationRequest(int pageNumber, int pageSize, string? searchTerm = null)
+{
+    public int PageNumber { get; set; } = pageNumber;
+
+    public int PageSize { get; set; } = pageSize;
+
+    public string? SearchTerm { get; set; } = searchTerm;
+}
