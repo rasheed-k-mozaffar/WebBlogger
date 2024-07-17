@@ -3,7 +3,4 @@ using MediatR;
 
 namespace Application.Features.Tags.Queries;
 
-public class GetTagByIdQuery(Guid id) : IRequest<Tag>
-{
-    public Guid Id { get; } = id;
-}
+public record GetTagByIdQuery(Guid Id) : IRequest<Tag>;

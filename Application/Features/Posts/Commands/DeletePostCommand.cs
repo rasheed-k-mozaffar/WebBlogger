@@ -3,9 +3,8 @@ using MediatR;
 
 namespace Application.Features.Posts.Commands;
 
-public class DeletePostCommand : IRequest
-{
-    public Guid PostId { get; set; }
-
-    public DeleteType DeleteType { get; set; } = DeleteType.Soft;
-}
+public record DeletePostCommand
+(
+    Guid PostId,
+    DeleteType DeleteType = DeleteType.Soft
+) : IRequest;

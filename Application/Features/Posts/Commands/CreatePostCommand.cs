@@ -4,15 +4,11 @@ using MediatR;
 
 namespace Application.Features.Posts.Commands;
 
-public class CreatePostCommand : IRequest<Unit>
-{
-    public Guid Id { get; set; }
-
-    public string Title { get; set; } = string.Empty;
-
-    public string Content { get; set; } = string.Empty;
-
-    public PostStatus Status { get; set; } = PostStatus.Published; // defaults to published
-
-    public ICollection<Tag>? Tags { get; set; } = [];
-}
+public record CreatePostCommand
+(
+    Guid Id,
+    string Title,
+    string Content,
+    PostStatus Status,
+    ICollection<Tag> Tags
+): IRequest<Unit>;

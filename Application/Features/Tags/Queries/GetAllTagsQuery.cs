@@ -4,7 +4,4 @@ using MediatR;
 
 namespace Application.Features.Tags.Queries;
 
-public class GetAllTagsQuery : IRequest<IReadOnlyCollection<Tag>>
-{
-
-}
+public record GetAllTagsQuery : IRequest<IReadOnlyCollection<Tag>>;

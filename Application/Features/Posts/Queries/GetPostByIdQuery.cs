@@ -3,7 +3,4 @@ using MediatR;
 
 namespace Application.Features.Posts.Queries;
 
-public class GetPostByIdQuery(Guid postId) : IRequest<Post?>
-{
-    public Guid PostId { get; } = postId;
-}
+public record GetPostByIdQuery(Guid PostId) : IRequest<Post?>;
