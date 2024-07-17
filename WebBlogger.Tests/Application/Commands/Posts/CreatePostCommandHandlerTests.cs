@@ -17,14 +17,14 @@ public class CreatePostCommandHandlerTests
         // ARRANGE
         var postValidator = Substitute.For<IValidator<Post>>();
 
-        var command = new CreatePostCommand()
-        {
-            Id = Guid.NewGuid(),
-            Title = "Valid Title",
-            Content = "Valid Content",
-            Status = PostStatus.Published,
-            Tags = null
-        };
+        var command = new CreatePostCommand
+        (
+            Guid.NewGuid(),
+            "Valid Title",
+            "Valid Content",
+            PostStatus.Published,
+            new List<Tag>()
+        );
 
         var postsRepository = Substitute.For<IPostsRepository>();
 
@@ -49,13 +49,14 @@ public class CreatePostCommandHandlerTests
         // ARRANGE
         var postsRepository = Substitute.For<IPostsRepository>();
         var postValidator = Substitute.For<IValidator<Post>>();
-        var command = new CreatePostCommand()
-        {
-            Id = Guid.NewGuid(),
-            Title = "",
-            Content = "",
-            Tags = null
-        };
+        var command = new CreatePostCommand
+        (
+            Guid.NewGuid(),
+            "",
+            "",
+            PostStatus.Published,
+            new List<Tag>()
+        );
 
         List<ValidationFailure> failures =
         [

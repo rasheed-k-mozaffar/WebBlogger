@@ -36,13 +36,13 @@ public class UpdateTagCommandHandlerTests
             CoverImageUrl = null
         };
 
-        var command = new UpdateTagCommand()
-        {
-            Id = tagId,
-            Name = "C Sharp",
-            Description = "Valid new tag description",
-            CoverImageUrl = null
-        };
+        var command = new UpdateTagCommand
+        (
+            tagId,
+            "C Sharp",
+            "Valid new tag description",
+            null
+        );
 
         var updatedTag = command.MapToTag();
 
@@ -66,13 +66,13 @@ public class UpdateTagCommandHandlerTests
     public async Task Handle_ShouldThrowValidationException_WhenCommandIsInvalid()
     {
         // ARRANGE
-        var command = new UpdateTagCommand()
-        {
-            Id = Guid.NewGuid(),
-            Name = "",
-            Description = null,
-            CoverImageUrl = null
-        };
+        var command = new UpdateTagCommand
+        (
+            Guid.NewGuid(),
+            "",
+            null,
+            null
+        );
 
         var updatedTag  = command.MapToTag();
 
@@ -104,7 +104,7 @@ public class UpdateTagCommandHandlerTests
             .Returns(Task.FromResult(new ValidationResult()));
         // ACT
         Func<Task> action = () => _handler
-            .Handle(new UpdateTagCommand(), CancellationToken.None);
+            .Handle(new UpdateTagCommand(Guid.NewGuid(), "", null, null), CancellationToken.None);
 
         // ASSERT
         await action.Should().ThrowAsync<TagNotFoundException>();
@@ -120,7 +120,8 @@ public class UpdateTagCommandHandlerTests
 
         // ACT
         await cts.CancelAsync();
-        Func<Task> action = async () => await _handler.Handle(new UpdateTagCommand(), cts.Token);
+        Func<Task> action = async () => await _handler
+            .Handle(new UpdateTagCommand(Guid.NewGuid(), "", null, null), cts.Token);
 
         // ASSERT
         await action.Should().ThrowAsync<OperationCanceledException>();

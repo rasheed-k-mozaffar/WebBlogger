@@ -25,13 +25,13 @@ public class CreateTagCommandHandlerTests
     public async Task Handle_ShouldCreateTag_WhenCommandIsValid()
     {
         // ARRANGE
-        var command = new CreateTagCommand()
-        {
-            Id = Guid.NewGuid(),
-            Name = "C#",
-            Description = "Valid Tag description",
-            CoverImageUrl = null
-        };
+        var command = new CreateTagCommand
+        (
+            Guid.NewGuid(),
+            "C#",
+            "Valid Tag description",
+            null
+        );
 
         var handler = new CreateTagCommandHandler(_tagsRepository, _tagValidator);
         var validationResult = new ValidationResult();
@@ -52,11 +52,13 @@ public class CreateTagCommandHandlerTests
     public async Task Handle_ShouldThrowValidationException_WhenCommandIsInvalid()
     {
         // ARRANGE
-        var command = new CreateTagCommand()
-        {
-            Id = Guid.NewGuid(),
-            Name = string.Empty
-        };
+        var command = new CreateTagCommand
+        (
+            Guid.NewGuid(),
+            string.Empty,
+            null,
+            null
+        );
         var handler = new CreateTagCommandHandler(_tagsRepository, _tagValidator);
 
         var validationFailures = new List<ValidationFailure>()
