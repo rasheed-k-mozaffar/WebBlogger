@@ -19,8 +19,6 @@
     <ItemGroup>
       <Folder Include="Dtos\Requests\" />
       <Folder Include="Dtos\Responses\" />
-      <Folder Include="Features\Comments\Handlers\" />
-      <Folder Include="Features\Comments\Queries\" />
     </ItemGroup>
 
 </Project>
