@@ -16,6 +16,7 @@ public class CommentsRepository(AppDbContext dbContext) : ICommentsRepository
     {
         var query = dbContext
             .Comments
+            .Include(p => p.Replies)
             .Where(c => c.PostId == postId);
 
         var totalCount = await query.CountAsync(cancellationToken);
@@ -60,6 +61,7 @@ public class CommentsRepository(AppDbContext dbContext) : ICommentsRepository
     {
         var comment = await dbContext
             .Comments
+            .Include(p => p.Replies)
             .FirstOrDefaultAsync(c => c.Id == commentId, cancellationToken);
 
         if(comment is null)
