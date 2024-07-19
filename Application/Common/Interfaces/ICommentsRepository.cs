@@ -11,7 +11,7 @@ public interface ICommentsRepository
         (Guid postId, PaginationRequest<CommentsSortOption> sortOption, CancellationToken cancellationToken);
 
     Task<Comment> SaveCommentAsync
-        (Guid postId, Comment comment, Guid? parentCommentId, CancellationToken cancellationToken);
+        (Guid postId, Comment comment, CancellationToken cancellationToken);
 
     Task<Comment> GetCommentByIdAsync(Guid commentId, CancellationToken cancellationToken);
 

@@ -36,7 +36,7 @@ public class CommentsRepository(AppDbContext dbContext) : ICommentsRepository
         );
     }
 
-    public async Task<Comment> SaveCommentAsync(Guid postId, Comment comment, Guid? parentCommentId, CancellationToken cancellationToken)
+    public async Task<Comment> SaveCommentAsync(Guid postId, Comment comment, CancellationToken cancellationToken)
     {
         var post = await dbContext
             .Posts
@@ -45,11 +45,11 @@ public class CommentsRepository(AppDbContext dbContext) : ICommentsRepository
         if (post is null)
             throw new PostNotFoundException("The post you're looking for was not found");
 
-        if (parentCommentId.HasValue)
+        if (comment.ParentCommentId.HasValue)
         {
             // grab the parent comment to set the added comment as a reply to the parent
-            var parentComment = await GetParentCommentAndThrowIfNullAsync(parentCommentId.Value, cancellationToken);
-            comment.ParentCommentId = parentCommentId;
+            var parentComment = await GetParentCommentAndThrowIfNullAsync
+                (comment.ParentCommentId.Value, cancellationToken);
             comment.ParentComment = parentComment;
         }
 
