@@ -27,6 +27,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <Folder Include="Application\Queries\Comments\" />
       <Folder Include="Domain\" />
       <Folder Include="Presentation\" />
     </ItemGroup>
