@@ -119,11 +119,11 @@ public class CommentsRepositoryTests
             Content = "Test comment"
         };
 
-        _commentsRepository.SaveCommentAsync(_postId, comment, null, CancellationToken.None)
+        _commentsRepository.SaveCommentAsync(_postId, comment, CancellationToken.None)
             .Returns(comment);
 
         // ACT
-        var result = await _commentsRepository.SaveCommentAsync(_postId, comment, null, CancellationToken.None);
+        var result = await _commentsRepository.SaveCommentAsync(_postId, comment, CancellationToken.None);
 
         // ASSERT
         result.Should().NotBeNull();
@@ -137,12 +137,12 @@ public class CommentsRepositoryTests
         var cts = new CancellationTokenSource();
         var comment = new Comment();
 
-        _commentsRepository.SaveCommentAsync(_postId, comment, null, cts.Token)
+        _commentsRepository.SaveCommentAsync(_postId, comment, cts.Token)
             .ThrowsAsync(new OperationCanceledException());
 
         await cts.CancelAsync();
         Func<Task> action = async () => await _commentsRepository
-            .SaveCommentAsync(_postId, comment, null, cts.Token);
+            .SaveCommentAsync(_postId, comment, cts.Token);
 
         // ACT & ASSERT
         await action.Should().ThrowAsync<OperationCanceledException>();
@@ -160,12 +160,12 @@ public class CommentsRepositoryTests
             Content = "Test reply comment"
         };
 
-        _commentsRepository.SaveCommentAsync(_postId, reply, _parentCommentId, CancellationToken.None)
+        _commentsRepository.SaveCommentAsync(_postId, reply, CancellationToken.None)
             .Returns(reply);
 
         // ACT
         var result = await _commentsRepository
-            .SaveCommentAsync(_postId, reply, _parentCommentId, CancellationToken.None);
+            .SaveCommentAsync(_postId, reply, CancellationToken.None);
 
         // ASSERT
         result.Should().NotBeNull();
@@ -185,11 +185,11 @@ public class CommentsRepositoryTests
             Content = "Test reply comment"
         };
 
-        _commentsRepository.SaveCommentAsync(_postId, reply, reply.ParentCommentId, CancellationToken.None)
+        _commentsRepository.SaveCommentAsync(_postId, reply, CancellationToken.None)
             .ThrowsAsync(new CommentNotFoundException("The comment you are replying to was not found"));
 
         Func<Task> action = async() => await _commentsRepository
-            .SaveCommentAsync(_postId, reply, reply.ParentCommentId, CancellationToken.None);
+            .SaveCommentAsync(_postId, reply, CancellationToken.None);
 
         // ACT & ASSERT
         await action.Should().ThrowAsync<CommentNotFoundException>();
@@ -207,11 +207,11 @@ public class CommentsRepositoryTests
             Content = "Test comment"
         };
 
-        _commentsRepository.SaveCommentAsync(comment.PostId, comment, null, CancellationToken.None)
+        _commentsRepository.SaveCommentAsync(comment.PostId, comment, CancellationToken.None)
             .ThrowsAsync(new PostNotFoundException("The post you're trying to comment on was not found"));
 
         Func<Task> action = async () => await _commentsRepository
-            .SaveCommentAsync(comment.PostId, comment, null, CancellationToken.None);
+            .SaveCommentAsync(comment.PostId, comment, CancellationToken.None);
 
         // ACT & ASSERT
         await action.Should().ThrowAsync<PostNotFoundException>();

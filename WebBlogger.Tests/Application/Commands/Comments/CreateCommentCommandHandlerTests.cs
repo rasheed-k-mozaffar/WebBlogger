@@ -54,7 +54,6 @@ public class CreateCommentCommandHandlerTests
         (
             Arg.Any<Guid>(),
             Arg.Any<Comment>(),
-            null,
             Arg.Any<CancellationToken>()
         ).Returns(comment);
 
@@ -125,7 +124,6 @@ public class CreateCommentCommandHandlerTests
         (
             Arg.Any<Guid>(),
             Arg.Any<Comment>(),
-            null,
             Arg.Any<CancellationToken>()
         ).ThrowsAsync(new OperationCanceledException());
 

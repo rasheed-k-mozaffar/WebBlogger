@@ -27,7 +27,6 @@ public class CreateCommentCommandHandler
             (
                 request.PostId,
                 comment,
-                comment.ParentCommentId,
                 cancellationToken
             );
 
