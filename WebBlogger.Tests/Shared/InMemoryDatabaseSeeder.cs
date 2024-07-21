@@ -58,4 +58,29 @@ public class InMemoryDatabaseSeeder
         context.Posts.AddRange(posts);
         context.SaveChanges();
     }
+
+    public static void SeedComments(AppDbContext context, Post post, int numOfComments)
+    {
+        var faker = new Faker<Comment>()
+            .RuleFor(p => p.Content, f => f.Lorem.Paragraphs(2))
+            .RuleFor(p => p.WrittenOn, f => f.Date.Past())
+            .RuleFor(p => p.PostId, post.Id)
+            .RuleFor(p => p.Post, post);
+
+        var comments = faker.Generate(numOfComments);
+        context.Comments.AddRange(comments);
+        context.SaveChanges();
+    }
+
+    public static void SeedPostLikes(AppDbContext context, Post post, int numOfLikes)
+    {
+        var faker = new Faker<Like>()
+            .RuleFor(p => p.PostId, post.Id)
+            .RuleFor(p => p.Post, post)
+            .RuleFor(p => p.Id, f => f.Random.Guid());
+
+        var likes = faker.Generate(numOfLikes);
+        context.Likes.AddRange(likes);
+        context.SaveChanges();
+    }
 }
