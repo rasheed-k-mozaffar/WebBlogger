@@ -12,9 +12,7 @@ public class LikesRepository(AppDbContext dbContext) : ILikesRepository
 {
     public async Task<bool> IsLikedAsync(Guid userId, ILikeable entity, CancellationToken cancellationToken)
     {
-        var type = entity.GetType();
-
-        if (type == typeof(Post) && entity is Post post)
+        if (entity is Post post)
         {
             var checkedPost = await dbContext
                 .Posts
@@ -27,7 +25,7 @@ public class LikesRepository(AppDbContext dbContext) : ILikesRepository
             return checkedPost.Likes.Any(x => x.AppUserId == userId);
         }
 
-        if (type == typeof(Comment) && entity is Comment comment)
+        if (entity is Comment comment)
         {
             var checkedComment = await dbContext
                 .Comments
